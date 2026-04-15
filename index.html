@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edwards Barber Shop | Glen Cove, NY</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Oswald:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F5F0E8;
+    --bone: #EDE8DC;
+    --dark: #1A1208;
+    --burgundy: #6B1F2A;
+    --gold: #C9A84C;
+    --gold-light: #E8C96B;
+    --mid: #4A3728;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--dark);
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.5;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.2rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(26,18,8,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201,168,76,0.25);
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    letter-spacing: 0.08em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--bone);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--gold); }
+
+  .nav-cta {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 400;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--dark) !important;
+    background: var(--gold);
+    padding: 0.55rem 1.4rem;
+    text-decoration: none;
+    transition: background 0.3s !important;
+  }
+
+  .nav-cta:hover { background: var(--gold-light) !important; color: var(--dark) !important; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    background: var(--dark);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8rem 4rem 4rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 30px,
+      rgba(201,168,76,0.03) 30px,
+      rgba(201,168,76,0.03) 31px
+    );
+  }
+
+  .hero-badge {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid rgba(201,168,76,0.4);
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    margin-bottom: 2rem;
+    width: fit-content;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 5vw, 5.5rem);
+    font-weight: 900;
+    line-height: 1.0;
+    color: var(--cream);
+    animation: fadeUp 0.9s 0.1s ease both;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-tagline {
+    margin-top: 1.5rem;
+    font-size: 1.35rem;
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(245,240,232,0.65);
+    line-height: 1.5;
+    max-width: 380px;
+    animation: fadeUp 1s 0.2s ease both;
+  }
+
+  .hero-divider {
+    width: 60px;
+    height: 2px;
+    background: var(--gold);
+    margin: 2rem 0;
+    animation: fadeUp 1s 0.3s ease both;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 3rem;
+    animation: fadeUp 1s 0.4s ease both;
+  }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--gold);
+    display: block;
+  }
+
+  .stat-label {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.5);
+  }
+
+  .hero-cta-group {
+    margin-top: 3rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    animation: fadeUp 1s 0.5s ease both;
+  }
+
+  .btn-primary {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    background: var(--gold);
+    color: var(--dark);
+    padding: 1rem 2.2rem;
+    text-decoration: none;
+    transition: all 0.3s;
+    display: inline-block;
+  }
+
+  .btn-primary:hover {
+    background: var(--gold-light);
+    transform: translateY(-2px);
+  }
+
+  .btn-ghost {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--bone);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.3s;
+  }
+
+  .btn-ghost:hover { color: var(--gold); }
+
+  .hero-right {
+    background: var(--burgundy);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-right::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(26,18,8,0.4) 0%, transparent 60%);
+  }
+
+  .barber-pole-art {
+    position: absolute;
+    right: -40px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 120px;
+    height: 400px;
+    opacity: 0.15;
+  }
+
+  .hero-img-block {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .scissors-icon {
+    font-size: 8rem;
+    display: block;
+    margin-bottom: 1.5rem;
+    filter: drop-shadow(0 0 40px rgba(201,168,76,0.3));
+    animation: float 4s ease-in-out infinite;
+  }
+
+  .hero-quote {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.5rem;
+    color: var(--cream);
+    max-width: 280px;
+    line-height: 1.5;
+  }
+
+  .hero-quote cite {
+    display: block;
+    margin-top: 1rem;
+    font-family: 'Oswald', sans-serif;
+    font-style: normal;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  /* ── MARQUEE ── */
+  .marquee-bar {
+    background: var(--gold);
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 0.75rem 0;
+  }
+
+  .marquee-track {
+    display: inline-flex;
+    animation: marquee 20s linear infinite;
+  }
+
+  .marquee-item {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 400;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--dark);
+    padding: 0 2.5rem;
+  }
+
+  .marquee-dot {
+    color: var(--burgundy);
+    opacity: 0.6;
+  }
+
+  /* ── SERVICES ── */
+  .services {
+    padding: 7rem 5rem;
+    background: var(--bone);
+    position: relative;
+  }
+
+  .section-label {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    font-weight: 700;
+    color: var(--dark);
+    line-height: 1.1;
+    margin-bottom: 1rem;
+  }
+
+  .section-sub {
+    font-size: 1.15rem;
+    color: var(--mid);
+    font-style: italic;
+    max-width: 500px;
+    line-height: 1.6;
+  }
+
+  .services-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 4rem;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  .service-card {
+    background: var(--dark);
+    padding: 3rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+    cursor: default;
+    transition: transform 0.4s ease;
+  }
+
+  .service-card:hover { transform: translateY(-4px); }
+
+  .service-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%; height: 3px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+
+  .service-card:hover::before { transform: scaleX(1); }
+
+  .service-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: rgba(201,168,76,0.12);
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    line-height: 1;
+  }
+
+  .service-icon {
+    font-size: 2rem;
+    margin-bottom: 1.2rem;
+    display: block;
+  }
+
+  .service-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 0.6rem;
+  }
+
+  .service-desc {
+    font-size: 1rem;
+    color: rgba(245,240,232,0.55);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  .service-price {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    font-size: 1.1rem;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── ABOUT ── */
+  .about {
+    padding: 7rem 5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .about-visual {
+    position: relative;
+  }
+
+  .about-box-main {
+    background: var(--dark);
+    aspect-ratio: 4/5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .about-box-main::before {
+    content: '';
+    position: absolute;
+    inset: 15px;
+    border: 1px solid rgba(201,168,76,0.2);
+    pointer-events: none;
+  }
+
+  .about-emoji {
+    font-size: 5rem;
+    margin-bottom: 1.5rem;
+    display: block;
+  }
+
+  .about-box-stat {
+    position: absolute;
+    bottom: -1.5rem;
+    right: -1.5rem;
+    background: var(--burgundy);
+    padding: 2rem;
+    width: 180px;
+  }
+
+  .about-stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--gold);
+    line-height: 1;
+    display: block;
+  }
+
+  .about-stat-label {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.7);
+    margin-top: 0.3rem;
+  }
+
+  .about-content { position: relative; }
+
+  .about-text {
+    font-size: 1.2rem;
+    line-height: 1.85;
+    color: var(--mid);
+    margin-bottom: 1.5rem;
+  }
+
+  .about-text strong {
+    color: var(--dark);
+    font-weight: 600;
+  }
+
+  .features-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin: 2rem 0;
+  }
+
+  .features-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 1.05rem;
+    color: var(--dark);
+  }
+
+  .features-list li::before {
+    content: '';
+    width: 20px;
+    height: 2px;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+
+  /* ── REVIEWS ── */
+  .reviews {
+    padding: 7rem 5rem;
+    background: var(--dark);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .reviews::before {
+    content: '"';
+    position: absolute;
+    top: -1rem;
+    left: 3rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 30rem;
+    color: rgba(201,168,76,0.04);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .reviews-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .reviews-header .section-title { color: var(--cream); }
+
+  .stars {
+    color: var(--gold);
+    font-size: 1.2rem;
+    letter-spacing: 0.1em;
+  }
+
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .review-card {
+    background: rgba(245,240,232,0.05);
+    border: 1px solid rgba(201,168,76,0.15);
+    padding: 2.5rem;
+    position: relative;
+    transition: border-color 0.3s;
+  }
+
+  .review-card:hover { border-color: rgba(201,168,76,0.4); }
+
+  .review-text {
+    font-size: 1.1rem;
+    font-style: italic;
+    color: rgba(245,240,232,0.8);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+
+  .reviewer {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .reviewer-avatar {
+    width: 40px;
+    height: 40px;
+    background: var(--burgundy);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: var(--gold);
+    flex-shrink: 0;
+  }
+
+  .reviewer-name {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--cream);
+  }
+
+  .reviewer-source {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  /* ── HOURS ── */
+  .hours-contact {
+    padding: 7rem 5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    background: var(--bone);
+  }
+
+  .hours-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 2rem;
+  }
+
+  .hours-table tr {
+    border-bottom: 1px solid rgba(74,55,40,0.12);
+  }
+
+  .hours-table td {
+    padding: 0.9rem 0;
+    font-size: 1.05rem;
+    color: var(--mid);
+  }
+
+  .hours-table td:first-child {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    color: var(--dark);
+  }
+
+  .hours-table td:last-child { text-align: right; }
+
+  .hours-table .closed { color: var(--burgundy); font-style: italic; }
+
+  .contact-items {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .contact-item {
+    display: flex;
+    gap: 1.2rem;
+    align-items: flex-start;
+  }
+
+  .contact-icon {
+    width: 44px;
+    height: 44px;
+    background: var(--dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    color: var(--gold);
+  }
+
+  .contact-label {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.25rem;
+  }
+
+  .contact-value {
+    font-size: 1.1rem;
+    color: var(--dark);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  a.contact-value:hover { color: var(--burgundy); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--dark);
+    padding: 3rem 5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(201,168,76,0.15);
+  }
+
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: var(--gold);
+    letter-spacing: 0.06em;
+  }
+
+  .footer-copy {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.3);
+  }
+
+  /* ── CTA BANNER ── */
+  .cta-banner {
+    background: var(--burgundy);
+    padding: 5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-banner::after {
+    content: '✂';
+    position: absolute;
+    right: 10%;
+    top: 50%;
+    transform: translateY(-50%) rotate(-30deg);
+    font-size: 10rem;
+    color: rgba(245,240,232,0.05);
+    pointer-events: none;
+  }
+
+  .cta-banner-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 700;
+    color: var(--cream);
+    max-width: 550px;
+    line-height: 1.15;
+  }
+
+  .cta-banner-title em { color: var(--gold); font-style: italic; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .hero-left { padding: 7rem 2rem 4rem; }
+    .services { padding: 4rem 1.5rem; }
+    .services-grid { grid-template-columns: 1fr; }
+    .about { padding: 4rem 1.5rem; grid-template-columns: 1fr; }
+    .about-visual { display: none; }
+    .reviews { padding: 4rem 1.5rem; }
+    .reviews-grid { grid-template-columns: 1fr; }
+    .hours-contact { padding: 4rem 1.5rem; grid-template-columns: 1fr; }
+    .cta-banner { padding: 3rem 1.5rem; }
+    footer { padding: 2rem 1.5rem; flex-direction: column; gap: 1rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Edwards Barber Shop</div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#hours">Hours</a></li>
+    <li><a href="tel:5166710603" class="nav-cta">Call Now</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <span class="hero-badge">✦ Est. Glen Cove, NY ✦</span>
+    <h1 class="hero-title">The Art of<br>the <em>Perfect</em><br>Cut.</h1>
+    <p class="hero-tagline">Where tradition meets precision. Eddie brings decades of craft to every chair.</p>
+    <div class="hero-divider"></div>
+    <div class="hero-stats">
+      <div>
+        <span class="stat-num">4.9★</span>
+        <span class="stat-label">Google Rating</span>
+      </div>
+      <div>
+        <span class="stat-num">16+</span>
+        <span class="stat-label">Years of Service</span>
+      </div>
+      <div>
+        <span class="stat-num">100%</span>
+        <span class="stat-label">Satisfied Clients</span>
+      </div>
+    </div>
+    <div class="hero-cta-group">
+      <a href="tel:5166710603" class="btn-primary">📞 Book Your Cut</a>
+      <a href="#services" class="btn-ghost">View Services →</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-img-block">
+      <span class="scissors-icon">✂️</span>
+      <blockquote class="hero-quote">
+        "He is a master of arts with the straight edge razor."
+        <cite>— David L., Long-time Client</cite>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-bar">
+  <div class="marquee-track">
+    <span class="marquee-item">Precision Haircuts <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Straight Razor Shaves <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Beard Trims <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Glen Cove's Finest <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Walk-ins Welcome <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Classic Craftsmanship <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Hot Towel Experience <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Precision Haircuts <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Straight Razor Shaves <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Beard Trims <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Glen Cove's Finest <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Walk-ins Welcome <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Classic Craftsmanship <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Hot Towel Experience <span class="marquee-dot">◆</span></span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="services-header">
+    <div>
+      <p class="section-label">✦ What We Offer</p>
+      <h2 class="section-title">Our Services</h2>
+      <p class="section-sub">Every service performed with precision, patience, and pride.</p>
+    </div>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <span class="service-number">01</span>
+      <span class="service-icon">✂️</span>
+      <div class="service-name">Classic Haircut</div>
+      <p class="service-desc">A timeless cut tailored to your face shape and style preference. Scissor or clipper — done right, every time.</p>
+      <div class="service-price">From $25</div>
+    </div>
+    <div class="service-card">
+      <span class="service-number">02</span>
+      <span class="service-icon">🪒</span>
+      <div class="service-name">Straight Razor Shave</div>
+      <p class="service-desc">The full traditional experience. Hot lather, a perfectly honed blade, and a finish so smooth it speaks for itself.</p>
+      <div class="service-price">From $35</div>
+    </div>
+    <div class="service-card">
+      <span class="service-number">03</span>
+      <span class="service-icon">🧔</span>
+      <div class="service-name">Beard Trim & Shape</div>
+      <p class="service-desc">Clean lines, sharp edges, and a natural shape that complements your features. Your beard, perfected.</p>
+      <div class="service-price">From $20</div>
+    </div>
+    <div class="service-card">
+      <span class="service-number">04</span>
+      <span class="service-icon">💈</span>
+      <div class="service-name">Cut & Shave Combo</div>
+      <p class="service-desc">The complete gentleman's treatment. Walk in for a haircut, walk out looking like a new man — head to chin.</p>
+      <div class="service-price">From $55</div>
+    </div>
+    <div class="service-card">
+      <span class="service-number">05</span>
+      <span class="service-icon">👦</span>
+      <div class="service-name">Kids Haircut</div>
+      <p class="service-desc">Patient, careful, and fun. We make sure even the littlest clients leave looking sharp and feeling great.</p>
+      <div class="service-price">From $20</div>
+    </div>
+    <div class="service-card">
+      <span class="service-number">06</span>
+      <span class="service-icon">🪄</span>
+      <div class="service-name">Head Shave</div>
+      <p class="service-desc">Eddie's specialty. A smooth, clean bald shave with careful contour attention — reviewed by clients as the best they've ever had.</p>
+      <div class="service-price">From $30</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-visual">
+    <div class="about-box-main">
+      <span class="about-emoji">💈</span>
+      <div style="text-align:center; padding: 0 2rem;">
+        <div style="font-family:'Playfair Display',serif; font-size:1.5rem; color:var(--cream); font-style:italic;">Eddie is focused and all about<br>what you ask for.</div>
+        <div style="font-family:'Oswald',sans-serif; font-size:0.65rem; letter-spacing:0.2em; color:var(--gold); margin-top:0.75rem; text-transform:uppercase;">— Google Reviewer</div>
+      </div>
+    </div>
+    <div class="about-box-stat">
+      <span class="about-stat-num">16+</span>
+      <span class="about-stat-label">Years in the Community</span>
+    </div>
+  </div>
+  <div class="about-content">
+    <p class="section-label">✦ Our Story</p>
+    <h2 class="section-title">Craft You Can<br>Count On</h2>
+    <p class="about-text">
+      Eddie at <strong>Edwards Barber Shop</strong> has been a cornerstone of the Glen Cove community for over 16 years. He's not just a barber — he's a <strong>craftsman</strong> who studies each client individually, learning their hair, their style, and their story.
+    </p>
+    <p class="about-text">
+      Clients travel from across Long Island for his signature straight-razor shave and precision cuts. Once you sit in Eddie's chair, you understand why.
+    </p>
+    <ul class="features-list">
+      <li>Walk-ins always welcome</li>
+      <li>Clean, quiet, comfortable shop</li>
+      <li>Traditional hot towel straight-razor shave</li>
+      <li>Expert precision for all hair types</li>
+      <li>A barber who truly listens to what you want</li>
+    </ul>
+    <a href="tel:5166710603" class="btn-primary" style="margin-top:1.5rem;">📞 (516) 671-0603</a>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews" id="reviews">
+  <div class="reviews-header">
+    <p class="section-label" style="color:var(--gold); text-align:center;">✦ Client Stories</p>
+    <h2 class="section-title" style="color:var(--cream);">What They're Saying</h2>
+    <div class="stars" style="margin-top:0.75rem;">★★★★★</div>
+    <p style="color:rgba(245,240,232,0.5); font-family:'Oswald',sans-serif; font-size:0.7rem; letter-spacing:0.15em; text-transform:uppercase; margin-top:0.5rem;">4.9 stars · 30+ Google Reviews</p>
+  </div>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">"Eddie's been my barber for about 16 years since my high school years till now. He is the best at what he does and a pro at it — meticulous, makes sure every haircut is just right."</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar">D</div>
+        <div>
+          <div class="reviewer-name">David</div>
+          <div class="reviewer-source">Google Review</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">"He is a master of arts with the straight edge razor and will leave your face smooth as a Tesla Model S. A physician needs precision — and Eddie delivers."</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar">A</div>
+        <div>
+          <div class="reviewer-name">A. Garcia, MD</div>
+          <div class="reviewer-source">Google Review</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">"Happened upon the place and I'm so glad I walked in. Eddie is focused and all about what you ask for. I have my head shaved bald — best straight razor haircut I've ever gotten."</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar">M</div>
+        <div>
+          <div class="reviewer-name">Michael</div>
+          <div class="reviewer-source">Google Review</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-banner">
+  <h2 class="cta-banner-title">Ready to look your <em>absolute best?</em><br>Book your cut today.</h2>
+  <a href="tel:5166710603" class="btn-primary" style="font-size:0.85rem; padding:1.2rem 2.8rem; white-space:nowrap;">📞 Call (516) 671-0603</a>
+</section>
+
+<!-- HOURS & CONTACT -->
+<section class="hours-contact" id="hours">
+  <div>
+    <p class="section-label">✦ We're Open</p>
+    <h2 class="section-title" style="font-size:2.5rem;">Hours</h2>
+    <table class="hours-table">
+      <tr><td>Monday</td><td>9:00 AM – 6:00 PM</td></tr>
+      <tr><td>Tuesday</td><td>9:00 AM – 6:00 PM</td></tr>
+      <tr><td>Wednesday</td><td>9:00 AM – 6:00 PM</td></tr>
+      <tr><td>Thursday</td><td>9:00 AM – 6:00 PM</td></tr>
+      <tr><td>Friday</td><td>9:00 AM – 6:00 PM</td></tr>
+      <tr><td>Saturday</td><td class="closed">Closed</td></tr>
+      <tr><td>Sunday</td><td>10:00 AM – 3:00 PM</td></tr>
+    </table>
+    <p style="margin-top:1.5rem; font-size:0.95rem; color:var(--mid); font-style:italic;">Walk-ins welcome. No appointment necessary.</p>
+  </div>
+  <div>
+    <p class="section-label">✦ Find Us</p>
+    <h2 class="section-title" style="font-size:2.5rem;">Contact</h2>
+    <div class="contact-items">
+      <div class="contact-item">
+        <div class="contact-icon">📞</div>
+        <div>
+          <div class="contact-label">Phone</div>
+          <a href="tel:5166710603" class="contact-value">(516) 671-0603</a>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <div>
+          <div class="contact-label">Address</div>
+          <div class="contact-value" style="font-weight:400; font-size:1.05rem;">86 Forest Ave, Ste A<br>Glen Cove, NY 11542</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">🚗</div>
+        <div>
+          <div class="contact-label">Directions</div>
+          <a href="https://maps.google.com/?q=86+Forest+Ave+Glen+Cove+NY" target="_blank" class="contact-value" style="font-size:1rem; text-decoration:underline;">Get Directions →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Edwards Barber Shop</div>
+  <div class="footer-copy">86 Forest Ave · Glen Cove, NY 11542 · (516) 671-0603</div>
+  <div class="footer-copy">© 2025 Edwards Barber Shop</div>
+</footer>
+
+</body>
+</html>
